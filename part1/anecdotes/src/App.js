@@ -17,7 +17,7 @@ const App = () => {
   const rand = () => {
     const max = anecdotes.length;
     const randNum = Math.floor(Math.random() * max - 0);
-    if(randNum===selected) rand()
+    if (randNum === selected) rand();
     console.log(randNum);
     setSelected(randNum);
   };
