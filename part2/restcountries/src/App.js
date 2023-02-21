@@ -24,11 +24,7 @@ const App = () => {
   return (
     <div>
       <Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} />
-      {/* <h2>Length of filtered countries is {filteredCountries.length}</h2> */}
       <ShowResult filteredCountries={filteredCountries} setSearchFilter={setSearchFilter} />
-      {/* {countries.map((country) => (
-        <h2>{ country.name}</h2>
-      ))} */}
     </div>
   )
 }
