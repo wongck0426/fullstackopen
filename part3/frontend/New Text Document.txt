@@ -1,0 +1,5 @@
+C:\>mklink /J "C:\Users\ken21\fullstackopen\fullstackopen\part1\unicafe\node_modules" "C:\Users\ken21\fullstackopen\fullstackopen\part1\courseinfo\node_modules"
+Junction created for C:\Users\ken21\fullstackopen\fullstackopen\part1\unicafe\node_modules <<===>> C:\Users\ken21\fullstackopen\fullstackopen\part1\courseinfo\node_modules
+
+
+mklink /J "C:\Users\ken21\fullstackopen\fullstackopen\part2\phonebook\node_modules" "C:\Users\ken21\fullstackopen\fullstackopen\part2\course-info\node_modules"
