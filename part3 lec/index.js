@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const cors = require("cors")
 const Note = require('./models/note')
+console.log(`HELLO!!`, process.env.MONGODB_URI)
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -37,6 +38,7 @@ app.use(express.static('build'))
 
 
 app.get('/api/notes', (req, res) => {
+  
   Note.find({}).then(notes => {
     res.json(notes)
   })
