@@ -1,8 +1,8 @@
 require('dotenv').config()
 
-const express = require("express")
-const morgan = require("morgan")
-const cors = require("cors")
+const express = require('express')
+const morgan = require('morgan')
+const cors = require('cors')
 const Person = require('./models/person')
 const app = express()
 
@@ -15,7 +15,6 @@ morgan.token('post-object', (req, res) => {
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-object'))
 app.use(express.static('build'))
 
-
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
@@ -26,6 +25,18 @@ const errorHandler = (error, request, reponse, next) => {
   }
   next(error)
 }
+
+// function validatePerson(person){
+//   const error = [];
+//   if (!person.name){
+//     error.push('Name is required')
+//   }
+//   if(!person.number){
+
+//   }
+// }
+
+
 app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(people => {
     response.json(people)
@@ -40,7 +51,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   const id = Number(request.params.id)
-  Person.findByIdAndRemove(request.params.id)
+  Person.findByIdAndRemove(id)
     .then(() => {
       response.status(204).end()
     })
@@ -48,20 +59,24 @@ app.delete('/api/persons/:id', (request, response, next) => {
 })
 
 app.post('/api/persons', (request, response, next) => {
+  console.log('INSIDE app.post')
+  console.log('And the body is : ', request.body)
   const body = request.body
   if (!body.name) {
     return response.status(400).json({
       error: 'name must be entered'
     })
   }
-  if (!body.phone) {
+  if (!body.number) {
     return response.status(400).json({
-      error: 'phone must be entered'
+      error: 'phone number must be entered'
     })
   }
+  console.log('pass the validation')
+
   const person = new Person({
     name: body.name,
-    phone: body.phone,
+    number: body.number,
   })
   person.save().then((savedPerson) => {
     response.json(savedPerson)
@@ -74,7 +89,7 @@ app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
   const person = new Person({
     name: body.name,
-    phone: body.phone
+    number: body.number
   })
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
     .then(updatedperson => {

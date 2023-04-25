@@ -4,9 +4,8 @@ const Persons = ({ persons, filter, handleDelete }) => {
       <h2>numbers</h2>
       {filter === ""
         ? persons.map((person) => (
-            <div id={person.id}>
+            <div key={person.id}>
               {person.name} {person.number} <button onClick={()=>handleDelete(person.name, person.id)}>delete</button>
-
             </div>
           ))
         : persons
@@ -14,7 +13,7 @@ const Persons = ({ persons, filter, handleDelete }) => {
               person.name.toLowerCase().includes(filter.toLowerCase())
             )
             .map((person) => (
-              <div id={person.id}>
+              <div key={person.id}>
                 {person.name} {person.number}
               </div>
             ))}

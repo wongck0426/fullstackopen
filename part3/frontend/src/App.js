@@ -39,7 +39,7 @@ const App = () => {
       personService
         .remove(id)
         .then((res) => {
-          setPersons(persons.filter((person) => person.id != id))
+          setPersons(persons.filter((person) => person.id !== id))
           timedMsg(`${name} has now been removed from server`, "success")
         })
         .catch((err) => {
@@ -50,6 +50,11 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    if(newName.length < 3 ){
+      timedMsg(`Person validation failed: name: Path '${newName}' is shorter than the minimum allowed length(3)`,"error" )
+      return;
+    }
+
     if (persons.find((p) => p.name.toLowerCase() === newName.toLowerCase())) {
       if (
         window.confirm(
@@ -84,6 +89,8 @@ const App = () => {
       personService.create(selectedPerson).then((returnPerson) => {
         setPersons(persons.concat(returnPerson))
         timedMsg(`Added ${returnPerson.name}`, "success")
+      }).catch(err=>{
+        console.log(err)
       })
     }
     setNewName("")
@@ -108,6 +115,7 @@ const App = () => {
         handleDelete={handleDelete}
       />
     </div>
+    
   )
 }
 
