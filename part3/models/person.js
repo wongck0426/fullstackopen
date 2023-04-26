@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
+console.log('Logging url before connecting', url)
 const url = process.env.MONGODB_URI_PHONEBOOK
 
-console.log('Logging url before connectting', url)
 mongoose.connect(url)
   .then(result => console.log('connected to MongoDB', result))
   .catch((error) => {console.log('error connecting to MongoDB:', error)})
