@@ -84,7 +84,7 @@ const App = () => {
       const selectedPerson = {
         name: newName,
         number: newPhone,
-        id: Math.floor(Math.random()*10000000),
+        id: persons.length > 0 ? persons[persons.length - 1].id + 1 : Math.floor(Math.random()*10000000),
       }
       personService.create(selectedPerson).then((returnPerson) => {
         setPersons(persons.concat(returnPerson))

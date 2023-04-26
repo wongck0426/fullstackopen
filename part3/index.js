@@ -22,7 +22,7 @@ const unknownEndpoint = (request, response) => {
 const errorHandler = (error, request, reponse, next) => {
   console.error(error.message)
   if (error.name === 'CastError') {
-    return reponse.state(400).send({ error: 'malformatted id' })
+    return reponse.status(400).send({ error: 'malformatted id' })
   }
   next(error)
 }
@@ -39,9 +39,10 @@ const errorHandler = (error, request, reponse, next) => {
 
 
 app.get('/api/persons', (request, response, next) => {
-  Person.find({}).then(people => {
-    response.json(people)
+  Person.find({})
+  .then(people => {
     console.log('from index.js app.get. Result: ', response.json(people))
+    response.json(people)
   }).catch(error => next(error))
 })
 
@@ -52,7 +53,8 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-  const id = Number(request.params.id)
+
+  const id = request.params.id
   Person.findByIdAndRemove(id)
     .then(() => {
       response.status(204).end()
