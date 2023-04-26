@@ -41,6 +41,7 @@ const errorHandler = (error, request, reponse, next) => {
 app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(people => {
     response.json(people)
+    console.log('from index.js app.get. Result: ', response.json(people))
   }).catch(error => next(error))
 })
 
